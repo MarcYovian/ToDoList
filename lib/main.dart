@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:to_do_list/praktikum04/to_do_list_detail.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       home: MyList4(),
     );
   }

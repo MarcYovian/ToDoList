@@ -2,9 +2,9 @@ class Person {
   String? _name, _place, _phone;
 
   Person(String name, String place, String phone) {
-    this._name = name;
-    this._place = place;
-    this._phone = phone;
+    _name = name;
+    _place = place;
+    _phone = phone;
   }
 
   // Getter untuk name

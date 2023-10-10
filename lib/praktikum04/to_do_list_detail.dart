@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:to_do_list/praktikum04/class_person.dart';
 
@@ -12,9 +14,9 @@ class _MyList4State extends State<MyList4> {
   // List<String> data = <String>[];
   List<Person> data = <Person>[];
 
-  final NameController = TextEditingController();
-  final PlaceController = TextEditingController();
-  final PhoneController = TextEditingController();
+  final NameController = TextEditingController(),
+      PlaceController = TextEditingController(),
+      PhoneController = TextEditingController();
 
   addData(String name, String place, String phone) {
     setState(() {
@@ -42,57 +44,68 @@ class _MyList4State extends State<MyList4> {
         child: Column(children: [
           TextField(
             controller: NameController,
-            decoration: InputDecoration(labelText: "Nama Lengkap"),
+            decoration: const InputDecoration(labelText: "Nama Lengkap"),
           ),
           TextField(
             controller: PlaceController,
-            decoration: InputDecoration(labelText: "Tempat Tinggal"),
+            decoration: const InputDecoration(labelText: "Tempat Tinggal"),
           ),
           TextField(
             controller: PhoneController,
-            decoration: InputDecoration(labelText: "No Telp"),
+            decoration: const InputDecoration(labelText: "No Telp"),
           ),
-          TextButton(
+          ElevatedButton(
               onPressed: () {
                 addData(NameController.text, PlaceController.text,
                     PhoneController.text);
               },
-              child: Text("add")),
+              child: const Text("Tambah")),
           Expanded(
-            child: Container(
-              child: ListView.builder(
-                itemCount: data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    leading: FlutterLogo(size: 50),
-                    title: Text(data[index].getName ?? ""),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(data[index].getPlace ?? ""),
-                        Text(data[index].getPhone ?? ""),
-                      ],
-                    ),
-                    trailing: IconButton(
-                        onPressed: () {
-                          deleteData(index);
-                        },
-                        icon: Icon(Icons.delete_forever)),
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => DetailList(
-                                Name: data[index].getName,
-                                Place: data[index].getPlace,
-                                Phone: data[index].getPhone,
-                              )),
-                    ),
-                  );
-                },
-              ),
+            child: ListView.builder(
+              itemCount: data.length,
+              itemBuilder: (BuildContext context, int index) {
+                return PersonTile(
+                    person: data[index], onDelete: () => deleteData(index));
+              },
             ),
           )
         ]),
+      ),
+    );
+  }
+}
+
+class PersonTile extends StatelessWidget {
+  final Person person;
+  final VoidCallback onDelete;
+
+  const PersonTile({super.key, required this.person, required this.onDelete});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: const FlutterLogo(size: 50),
+      title: Text(person.getName ?? ""),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(person.getPlace ?? ""),
+          Text(person.getPhone ?? ""),
+        ],
+      ),
+      trailing: IconButton(
+        onPressed: onDelete,
+        icon: const Icon(Icons.delete_forever),
+      ),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DetailList(
+            Name: person.getName,
+            Place: person.getPlace,
+            Phone: person.getPhone,
+          ),
+        ),
       ),
     );
   }
@@ -109,7 +122,7 @@ class DetailList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Detail"),
+        title: const Text("Detail"),
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
