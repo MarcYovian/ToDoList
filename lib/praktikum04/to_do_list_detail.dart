@@ -54,12 +54,15 @@ class _MyList4State extends State<MyList4> {
             controller: PhoneController,
             decoration: const InputDecoration(labelText: "No Telp"),
           ),
-          ElevatedButton(
-              onPressed: () {
-                addData(NameController.text, PlaceController.text,
-                    PhoneController.text);
-              },
-              child: const Text("Tambah")),
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: ElevatedButton(
+                onPressed: () {
+                  addData(NameController.text, PlaceController.text,
+                      PhoneController.text);
+                },
+                child: const Text("Tambah")),
+          ),
           Expanded(
             child: ListView.builder(
               itemCount: data.length,
@@ -112,9 +115,7 @@ class PersonTile extends StatelessWidget {
 }
 
 class DetailList extends StatelessWidget {
-  final String? Name;
-  final String? Place;
-  final String? Phone;
+  final String? Name, Place, Phone;
 
   const DetailList({super.key, this.Name, this.Place, this.Phone});
 
